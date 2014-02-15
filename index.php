@@ -17,7 +17,7 @@
 		
 	</head>
 	<body style="margin: 0; padding: 0; border: 0; background:#000; overflow:hidden; cursor:none; min-height:1000; min-widht:1000;">
-		<div id="wrapped" style="margin: 0; padding: 0; border: 0; background:#000; overflow:hidden; cursor:none; min-height:1000; min-widht:1000;" width="1000" height="1000">
+		<div id="wrapped" style="margin: 0; padding: 0; border: 0; background:#000; overflow:hidden; cursor:none; min-height:1000; min-widht:1000;text-align: center;" width="1000" height="1000">
 			
 			<!--<div class='slide' id='slide1'><img src='images/1.jpg'></div>
 			<div class='slide' id='slide2' style='display: none;'><img src='images/2.jpg'></div>

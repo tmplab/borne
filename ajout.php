@@ -46,13 +46,11 @@ foreach ($includeList as $file) {
 
             while (false !== ($fichier = readdir($repertoire))) // On lit chaque fichier du répertoire dans la boucle.
             {
-            $chemin = $dossier_traite."/".$fichier; // On définit le chemin du fichier à effacer.
-
-            // Si le fichier n'est pas un répertoire…
-            if ($fichier != ".." AND $fichier != "." AND !is_dir($fichier))
-                       {
-                            $tab_fichier[]=$fichier;
-                       }
+                $chemin = $dossier_traite."/".$fichier; // On définit le chemin du fichier à effacer.
+                if(!preg_match( "/image\/.*/", mime_content_type($chemin))){
+                    continue;
+                }
+                $tab_fichier[]=$fichier;
 
             }
             closedir($repertoire);
