@@ -1,0 +1,4 @@
+<?php
+$accounts = array(
+    "user" => "password"
+);

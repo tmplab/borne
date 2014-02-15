@@ -1,16 +1,31 @@
 <?php
 
-		$image_à_supprimer = $_POST['image'];
-	
-		$ouverture = opendir("images");
-		// Maintenant que le répertoire est ouvert, on le lit :
-		$lecture = readdir($ouverture);
-	
-		if((unlink($image_à_supprimer))==TRUE) // On efface.
-			echo 'Image supprim&eacute;e';
-	
-		closedir($ouverture); // On n'oublie pas de fermer ce qu'on a ouvert.
-	
+$includeList    = array("config.php","auth.php");
+foreach ($includeList as $file) {
+    if( !is_file($file)){
+        die("Missing file: $file" );
+    }
+    if( !is_readable($file)){
+        die("File not readable: $file");
+    }
+    require_once $file;
+}
+
+?><?php
+
+    $image = basename($_POST['image']);
+
+    // Maintenant que le répertoire est ouvert, on le lit :
+    $lecture = readdir($ouverture);
+
+    if((unlink("images/$image"))==TRUE) {
+    // On efface.
+    }
+    header("Location:/ajout.php");
+
+            echo 'Image supprim&eacute;e';
+
+
 
 ?>
 
