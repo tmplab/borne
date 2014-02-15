@@ -1,34 +1,37 @@
 <?php	
 	
-		$_FILES['mon_fichier']['name'];     //Le nom original du fichier, comme sur le disque du visiteur (exemple : mon_icone.png).
-		$_FILES['mon_fichier']['type'];     //Le type du fichier. Par exemple, cela peut être « image/png ».
-		$_FILES['mon_fichier']['size'];     //La taille du fichier en octets.
-		$_FILES['mon_fichier']['tmp_name']; //L'adresse vers le fichier uploadé dans le répertoire temporaire.
-		$_FILES['mon_fichier']['error'];    //Le code d'erreur, qui permet de savoir si le fichier a bien été uploadé.
+		$name = $_FILES['mon_fichier']['name'];     //Le nom original du fichier, comme sur le disque du visiteur (exemple : mon_icone.png).
+		$type = $_FILES['mon_fichier']['type'];     //Le type du fichier. Par exemple, cela peut être « image/png ».
+		$size = $_FILES['mon_fichier']['size'];     //La taille du fichier en octets.
+		$tmp_name = $_FILES['mon_fichier']['tmp_name']; //L'adresse vers le fichier uploadé dans le répertoire temporaire.
+		$error = $_FILES['mon_fichier']['error'];    //Le code d'erreur, qui permet de savoir si le fichier a bien été uploadé.
 	
-		if ($_FILES['mon_fichier']['error'] > 0) $erreur = "Erreur lors du transfert";
+                // Checks for errors
+		if ($error > 0){
+                    die("Erreur lors du transfert : $error");
+                }
 	
-		//mkdir('images', 0777, true);
-	
-		$extensions_valides = array( 'jpg' , 'jpeg');
-		//1. strrchr renvoie l'extension avec le point (« . »).
-		//2. substr(chaine,1) ignore le premier caractère de chaine.
-		//3. strtolower met l'extension en minuscules.
-		$extension_upload = strtolower(  substr(  strrchr($_FILES['mon_fichier']['name'], '.')  ,1)  );
-
-		if ( in_array($extension_upload,$extensions_valides) )
-		{
-			//$nom = "images/{$_FILES['mon_fichier']['name']}.{$extension_upload}";
-			$nom = "images/{$_FILES['mon_fichier']['name']}";
-			$resultat = move_uploaded_file($_FILES['mon_fichier']['tmp_name'],$nom);
-			if ($resultat) echo "Transfert r&eacute;ussi";
-		}
-		else
-		{
-			echo "Le fichier doit etre un JPEG ou JPG";
-		}
-
-
+                // gets image mime type
+                $mime = mime_content_type($tmp_name);
+                
+                // Checks the mime type is image/something
+                if( !preg_match("|^image/.*$|", $mime)){
+                    // Dies if invalid
+                    // @todo : log ?
+                die("Type de fichier invalide : $mime");
+                }
+                
+                // cleans original file name 
+                $nom = preg_replace(array("/[ !%:]/"), "-", $name);
+                
+                // Moves the uploaded file
+                $resultat = move_uploaded_file($_FILES['mon_fichier']['tmp_name'],__DIR__."/images/".$nom);
+                if ($resultat) {
+                    header("Location:/");
+                    echo "Transfert r&eacute;ussi";
+                }else{
+                    die( "Echec lors du déplacement du fichier");
+                }
 ?>
 
 <html>

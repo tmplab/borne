@@ -25,37 +25,17 @@
 			
 			<?php
 				$dossier_traite = "images";
-				$cpt=0;
+				$cpt = 0;
 	  
 				$repertoire = opendir($dossier_traite); // On définit le répertoire dans lequel on souhaite travailler.
-				  
-				/*while (false !== ($fichier = readdir($repertoire))) // On lit chaque fichier du répertoire dans la boucle.
-				{
-				$chemin = $dossier_traite."/".$fichier; // On définit le chemin du fichier à effacer.
-				  
-				// Si le fichier n'est pas un répertoire…
-				if ($fichier != ".." AND $fichier != "." AND !is_dir($fichier))
-					{
-						$cpt=$cpt+1;
-						
-						if($cpt==1)
-						{
-							echo '<div class="slide" id="slide'.$cpt.'"><img src='.$chemin.'></div>';
-						}
-						
-						else
-						{
-							echo '<div class="slide" id="slide'.$cpt.'" style="display: none;"><img src='.$chemin.'></div>';
-						}
-					}
-					   
-				}*/
+
 			while (false !== ($fichier = readdir($repertoire))) // On lit chaque fichier du répertoire dans la boucle.
 			{
-			$chemin = $dossier_traite."/".$fichier; // On définit le chemin du fichier à effacer.
+
+                            $chemin = $dossier_traite."/".$fichier; // On définit le chemin du fichier à effacer.
 			  
 			// Si le fichier n'est pas un répertoire…
-			if ($fichier != ".." AND $fichier != "." AND !is_dir($fichier))
+			if ($fichier != ".." AND $fichier != "." AND $fichier != ".gitignore" AND !is_dir($fichier))
 				   {
 					$tab_fichier[]=$fichier;
 				   }
